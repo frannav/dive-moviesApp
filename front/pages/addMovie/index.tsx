@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { addMovie, getAllActors } from "../../lib/api";
 import styles from "../../styles/Movies.module.css";
 import { Actor, Movie } from "../../types";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddMovie: NextPage = () => {
   const [actors, setActors] = useState([]);
@@ -13,6 +14,9 @@ const AddMovie: NextPage = () => {
 
   const addNewMovie = async (newMovie: Movie) => {
     const responseNewMovie = await addMovie(newMovie);
+    if (responseNewMovie.message) {
+      return toast.error(responseNewMovie.message);
+    }
   };
 
   const getActorsData = async () => {
@@ -42,39 +46,47 @@ const AddMovie: NextPage = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1>Add New Movie</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Title:
-            <input type="text" name="title" />
-          </label>
-          <label>
-            Category:
-            <input type="text" name="category" />
-          </label>
-          <label>
-            Cast:
-            <input
-              type="text"
-              name="cast"
-              placeholder="Introduce cast ID´s separates by coma"
-            />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
+    <>
+      <Toaster />
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <h1>Add New Movie</h1>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Title:
+              <input type="text" name="title" />
+            </label>
+            <label>
+              Category:
+              <input type="text" name="category" />
+            </label>
+            <label>
+              Cast:
+              <input
+                type="text"
+                name="cast"
+                placeholder="Introduce cast ID´s separates by coma"
+              />
+            </label>
+            <button type="submit">Submit</button>
+          </form>
 
-        <h1>Registered Actors IDS</h1>
-        <ul>
-          {actors.map((actor: Actor) => (
-            <li key={actor._id}>
-              <h2>ID: {actor._id}</h2>
-            </li>
-          ))}
-        </ul>
-      </main>
-    </div>
+          <h1>Actors already registered</h1>
+          <ul>
+            {actors.map((actor: Actor) => (
+              <article key={actor._id}>
+                <div>
+                  <span>Name: {actor.name}</span>
+                </div>
+                <div>
+                  <span>ID: {actor._id}</span>
+                </div>
+              </article>
+            ))}
+          </ul>
+        </main>
+      </div>
+    </>
   );
 };
 

@@ -2,25 +2,8 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import { addActor } from "../../lib/api";
 import styles from "../../styles/Movies.module.css";
-
-type Movie = {
-  _id: string;
-  title: string;
-  category: string;
-  cast: Actor[];
-};
-
-enum Gender {
-  Male = "Male",
-  Female = "Female",
-}
-
-type Actor = {
-  _id?: string;
-  name: string;
-  age: number;
-  gender: Gender;
-};
+import { Actor, Gender } from "../../types";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddActor: NextPage = () => {
   const [name, setName] = useState("");
@@ -29,6 +12,9 @@ const AddActor: NextPage = () => {
 
   const addNewActor = async (newActor: Actor) => {
     const responseNewActor = await addActor(newActor);
+    if (responseNewActor.message) {
+      return toast.error(responseNewActor.message);
+    }
   };
 
   const handleSubmit = (e: any) => {
@@ -48,29 +34,32 @@ const AddActor: NextPage = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1>Add New Actor</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input type="text" name="name" />
-          </label>
-          <label>
-            Age:
-            <input type="number" name="age" />
-          </label>
-          <label>
-            Gender:
-            <select name="gender">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </label>
-          <button type="submit">Submit</button>
-        </form>
-      </main>
-    </div>
+    <>
+      <Toaster />
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <h1>Add New Actor</h1>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Name:
+              <input type="text" name="name" />
+            </label>
+            <label>
+              Age:
+              <input type="number" name="age" />
+            </label>
+            <label>
+              Gender:
+              <select name="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </label>
+            <button type="submit">Submit</button>
+          </form>
+        </main>
+      </div>
+    </>
   );
 };
 
