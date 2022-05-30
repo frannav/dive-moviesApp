@@ -18,7 +18,6 @@ export const getAllActors = async (_req: any, res: any) => {
 
 export const addActor = async (req: any, res: any) => {
   try {
-    console.log(req.body);
     const { name, age, gender } = req.body as any;
 
     if (!name || !age || !gender) {
