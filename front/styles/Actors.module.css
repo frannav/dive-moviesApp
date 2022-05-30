@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+}
+
+.article {
+  border: 1px solid rgb(102, 80, 80);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 1.3rem;
+}
