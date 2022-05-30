@@ -1,3 +1,8 @@
+export enum Gender {
+  Male = "Male",
+  Female = "Female",
+}
+
 export type Movie = {
   _id?: string;
   title: string;
@@ -8,6 +13,6 @@ export type Movie = {
 export type Actor = {
   _id?: string;
   name: string;
-  age: string;
+  age: number;
   gender: "Male" | "Female";
 };
