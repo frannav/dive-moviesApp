@@ -42,6 +42,22 @@ const Home: NextPage = () => {
             </a>
           </Link>
         </div>
+
+        <div className={styles.grid}>
+          <h2>Aditional Pages:</h2>
+          <ul>
+            <li>
+              /movies/:id ➡️ Returns movies in which all the requested actors
+              appear
+            </li>
+            <span>(id must be id of the actors)</span>
+            <li>
+              /actors/:id ➡️ Returns actors that appear in all the requested
+              movies
+            </li>
+            <span>(id must be id of the movies)</span>
+          </ul>
+        </div>
       </main>
 
       <footer className={styles.footer}>
