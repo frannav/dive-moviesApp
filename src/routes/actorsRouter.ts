@@ -82,7 +82,6 @@ router.get("/common_actors/:movies", async (req, res) => {
     }).distinct("cast");
 
     commonActors.forEach((actor) => {
-      console.log("actor", actor.toString());
       commonActorsIds.push(actor.toString());
     });
 
